@@ -1,6 +1,7 @@
 package main
 
 import (
+	"GolangTest/src/database"
 	"GolangTest/src/routes"
 	"log"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 
 
 func main() {
+	database.Connect()
 	router := mux.NewRouter()
 
 	routes.SetupRoutes(router)
