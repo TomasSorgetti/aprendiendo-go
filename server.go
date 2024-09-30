@@ -1,29 +1,20 @@
 package main
 
 import (
+	"GolangTest/src/routes"
+	"log"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/gorilla/mux"
 )
 
-type album struct{
-	ID string `json:"id"`
-	Title string `json:"title"`
-	Artist string `json:"artist"`
-}
-var albums = []album{
-	{ID: "1", Title: "Blue", Artist: "John"},
-	{ID: "2", Title: "Green", Artist: "Sarah"},
-	{ID: "3", Title: "Red", Artist: "Bob"},	
-}
 
-func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
-}
 
 func main() {
-	router := gin.Default()
-	router.GET("/albums", getAlbums)
+	router := mux.NewRouter()
 
-	router.Run("localhost:8080")
+	routes.SetupRoutes(router)
+
+	log.Println("Servidor corriendo en http://localhost:8000")
+    log.Fatal(http.ListenAndServe(":8000", router))
 }
